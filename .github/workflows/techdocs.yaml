@@ -12,13 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TECHDOCS_S3_BUCKET_NAME: ${{ secrets.TECHDOCS_S3_BUCKET_NAME }}
+      TECHDOCS_S3_BUCKET_NAME: ${{ vars.TECHDOCS_S3_BUCKET_NAME }}
       AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       AWS_REGION: ${{ secrets.AWS_REGION }}
       ENTITY_NAMESPACE: default
       ENTITY_KIND: mapfredocument
-      ENTITY_NAME: ca8bca71-402f-48b7-8f2c-d789874f5c13
+      ENTITY_NAME: ${{ vars.ENTITY_NAME }}
 
     steps:
       - name: Checkout code
