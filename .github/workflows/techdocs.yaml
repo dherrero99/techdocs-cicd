@@ -12,6 +12,10 @@ jobs:
   publish-techdocs-site:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write
+      contents: read
+
     env:
       TECHDOCS_S3_BUCKET_NAME: ${{ vars.TECHDOCS_S3_BUCKET_NAME }}
       AWS_ACCOUNT: ${{ vars.AWS_ACCOUNT }}
