@@ -1,4 +1,4 @@
-name: Publish TechDocs Site
+name: Build & Publish to Marketplace
 
 on:
   push:
@@ -17,12 +17,13 @@ jobs:
       contents: read
 
     env:
-      TECHDOCS_S3_BUCKET_NAME: ${{ vars.TECHDOCS_S3_BUCKET_NAME }}
-      AWS_ACCOUNT: ${{ vars.AWS_ACCOUNT }}
-      AWS_REGION: ${{ vars.AWS_REGION }}
+      TECHDOCS_S3_BUCKET_NAME: ${{ vars.MARKETPLACE_TECHDOCS_S3_BUCKET_NAME }}
+      AWS_ACCOUNT: ${{ vars.MARKETPLACE_AWS_ACCOUNT }}
+      AWS_REGION: ${{ vars.MARKETPLACE_AWS_REGION }}
       ENTITY_NAMESPACE: default
       ENTITY_KIND: mapfredocument
       ENTITY_NAME: ${{ vars.ENTITY_NAME }}
+      TECHDOCS_ROLE_NAME: ${{ vars.MARKETPLACE_TECHDOCS_ROLE_NAME }}
 
     steps:
       - name: Checkout code
@@ -36,7 +37,7 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
-          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/github-techdocs-cicd-role
+          role-to-assume: arn:aws:iam::${{ env.AWS_ACCOUNT }}:role/${{ env.TECHDOCS_ROLE_NAME }}
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Install techdocs-cli
